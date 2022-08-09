@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { HOME_INDEX } from '@/constants/modules/route';
+import { VIEW_WELCOME } from '@/constants/modules/route';
 import { setTokenInfo } from '@/redux/modules/auth/action';
 import { login } from '@/api/modules/login';
 
@@ -19,7 +19,7 @@ const LoginForm = props => {
 			const tokenInfo = await login(loginForm);
 			props.setTokenInfo(tokenInfo);
 			message.success('登录成功！');
-			navigate(HOME_INDEX);
+			navigate(VIEW_WELCOME);
 		} finally {
 			setLoading(false);
 		}
@@ -32,20 +32,20 @@ const LoginForm = props => {
 	return (
 		<Form
 			form={form}
-			name="basic"
+			name='basic'
 			labelCol={{ span: 5 }}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
-			size="large"
-			autoComplete="off"
+			size='large'
+			autoComplete='off'
 		>
-			<Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-				<Input placeholder="用户名：admin / user" prefix={<UserOutlined />} />
+			<Form.Item name='username' rules={[{ required: true, message: '请输入用户名' }]}>
+				<Input placeholder='用户名：admin / user' prefix={<UserOutlined />} />
 			</Form.Item>
-			<Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
-				<Input.Password autoComplete="new-password" placeholder="密码：123456" prefix={<LockOutlined />} />
+			<Form.Item name='password' rules={[{ required: true, message: '请输入密码' }]}>
+				<Input.Password autoComplete='new-password' placeholder='密码：123456' prefix={<LockOutlined />} />
 			</Form.Item>
-			<Form.Item className="login-btn">
+			<Form.Item className='login-btn'>
 				<Button
 					onClick={() => {
 						form.resetFields();
@@ -54,7 +54,7 @@ const LoginForm = props => {
 				>
 					重置
 				</Button>
-				<Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined />}>
+				<Button type='primary' htmlType='submit' loading={loading} icon={<UserOutlined />}>
 					登录
 				</Button>
 			</Form.Item>

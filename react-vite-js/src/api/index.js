@@ -1,36 +1,31 @@
 import axios from 'axios';
-// import { ResultEnum } from './helper/httpEnum';
-// import { checkStatus } from './helper/checkStatus';
-// import { AxiosCanceler } from './helper/axiosCancel';
-// import { setTokenInfo } from '@/redux/modules/auth/action';
 import { message } from 'antd';
-import { store } from '@/redux';
+import { getToken } from '@/utils';
 
 const errorHandler = error => {
-	const { status } = error;
+	const { status, statusText } = error.response;
 	const noAuth = /(401)|(407)/;
 	// const notFound = /(404)/;
 	if (noAuth.test(status)) {
 		message.error('登录失效！请您重新登录');
-		// if (window && window.location) {
-		// 	window.location.href = getLoginUrl();
-		// 	return;
-		// }
+		if (window && window.location) {
+			// navigate(getLoginUrl());
+			return;
+		}
+	} else {
+		message.error(statusText);
 	}
 };
 
-const config = {
-	// 默认地址请求地址，可在 .env 开头文件中修改
-	// baseURL: import.meta.env.VITE_API_URL,
-	withCredentials: true,
-	headers: {},
-	transformRequest: (data, headers) => {
-		const tokenInfo = store.getState().auth.tokenInfo;
-		headers['token'] = tokenInfo.token;
-	}
-};
+const config = {};
 
 const instance = axios.create(config);
+
+instance.interceptors.request.use(request => {
+	const token = getToken();
+	request.headers['Authorization'] = `Bearer ${token}`;
+	return request;
+});
 
 instance.interceptors.response.use(
 	response => response,

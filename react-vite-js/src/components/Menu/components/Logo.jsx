@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 const Logo = props => {
 	return (
-		<div className="logo-box">
-			<img src={logo} alt="logo" className="logo-img" />
-			{!props.isCollapse ? <h2 className="logo-text">I&apos;m Logo</h2> : null}
+		<div className='logo-box'>
+			<img src={logo} alt='logo' className='logo-img' />
+			{!props.isCollapse ? <h2 className='logo-text'>I&apos;m Logo</h2> : null}
 		</div>
 	);
 };

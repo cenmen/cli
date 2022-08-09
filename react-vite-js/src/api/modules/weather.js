@@ -9,5 +9,10 @@ import api from '../api';
 export const getWeatherByCity = async () => {
 	const params = { t: Date.now() };
 	const { data } = await http.get(api.weather, { params });
-	return data;
+	const list = data.data.city.map(val => ({
+		name: val[1],
+		code: val[17],
+		temperature: val[4]
+	}));
+	return { list, count: list.length };
 };

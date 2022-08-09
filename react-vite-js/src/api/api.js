@@ -1,9 +1,8 @@
-const loginService = 'http://localhost:3000';
-const weatherService = '/weather'; // https://weather.cma.cn/
+import { BASE_API, WEATHER_API } from '@/config/env';
 
-const login = `${loginService}/login`;
+const login = `${BASE_API}/login`;
 
-const weather = `${weatherService}/api/map/weather/1`;
+const weather = `${WEATHER_API}/api/map/weather/1`;
 
 export default {
 	login,

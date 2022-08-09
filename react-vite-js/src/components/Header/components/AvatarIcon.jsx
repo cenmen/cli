@@ -16,7 +16,7 @@ const AvatarIcon = props => {
 	const menuList = [
 		{
 			key: 'logout',
-			label: <span className="dropdown-item">退出登录</span>,
+			label: <span className='dropdown-item'>退出登录</span>,
 			icon: <LogoutOutlined />,
 			onClick: logout
 		}
@@ -26,8 +26,8 @@ const AvatarIcon = props => {
 
 	return (
 		<>
-			<Dropdown overlay={menu} placement="bottomRight" arrow>
-				<Avatar size="large" src={avatar} />
+			<Dropdown overlay={menu} placement='bottomRight' arrow>
+				<Avatar size='large' src={avatar} />
 			</Dropdown>
 		</>
 	);

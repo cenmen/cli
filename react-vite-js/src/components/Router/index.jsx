@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { HashRouter, useRoutes } from 'react-router-dom';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { setAuthInfoActionThunk, setAuthInfo } from '@/redux/modules/auth/action';
 import { setMenuList, setBreadcrumbList } from '@/redux/modules/layout/action';
@@ -20,9 +20,9 @@ const Router = props => {
 		const authRoutes = [...normalRouters, ...routes];
 		const menuList = utils.getAllMenuList(cloneDeep(authRoutes));
 		const breadcrumdList = utils.getAllBreadcrumdList(cloneDeep(authRoutes));
-		console.log('==> [authRoutes]', authRoutes);
-		console.log('==> [menuList]', menuList);
-		console.log('==> [breadcrumdList]', breadcrumdList);
+		// console.log('==> [authRoutes]', authRoutes);
+		// console.log('==> [menuList]', menuList);
+		// console.log('==> [breadcrumdList]', breadcrumdList);
 		setAuthRoutes(authRoutes);
 		props.setAuthInfo(authInfo);
 		props.setMenuList(menuList);
@@ -38,7 +38,7 @@ const Router = props => {
 		return routes;
 	};
 
-	return <HashRouter>{authRoutes && <AuthRouter routes={authRoutes} />}</HashRouter>;
+	return <BrowserRouter>{authRoutes && <AuthRouter routes={authRoutes} />}</BrowserRouter>;
 };
 const mapStateToProps = state => state.auth;
 const mapDispatchToProps = { setAuthInfoActionThunk, setAuthInfo, setMenuList, setBreadcrumbList };

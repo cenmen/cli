@@ -1,29 +1,30 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Login from '@/views/login/index';
+import { VIEW_LOGIN, VIEW_404 } from '@/constants/modules/route';
 import errorRouter from './modules/error';
 import weatherRouter from './modules/weather';
-import homeRouter from './modules/home';
+import welcomeRouter from './modules/welcome';
 
 export const basicRouters = [...weatherRouter];
 
 export const normalRouters = [
 	{
 		path: '/',
-		element: <Navigate to="/login" />,
+		element: <Navigate to='/login' />,
 		isHide: true
 	},
 	{
-		path: '/login',
+		path: VIEW_LOGIN,
 		title: '登录页',
 		element: <Login />,
 		isHide: true
 	},
-	...homeRouter,
+	...welcomeRouter,
 	...errorRouter,
 	{
 		path: '*',
-		element: <Navigate to="/404" />,
+		element: <Navigate to={VIEW_404} />,
 		isHide: true
 	}
 ];

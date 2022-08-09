@@ -35,12 +35,12 @@ const LayoutMenu = props => {
 	}, [pathname, props.isCollapse]);
 
 	return (
-		<div className="menu">
+		<div className='menu'>
 			<Logo></Logo>
 			<Menu
-				theme="dark"
-				mode="inline"
-				triggerSubMenuAction="click"
+				theme='dark'
+				mode='inline'
+				triggerSubMenuAction='click'
 				openKeys={openKeys}
 				selectedKeys={selectedKeys}
 				items={menuList}

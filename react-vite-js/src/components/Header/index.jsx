@@ -9,12 +9,12 @@ const LayoutHeader = () => {
 
 	return (
 		<Header>
-			<div className="header-lf">
+			<div className='header-lf'>
 				<CollapseIcon />
 				<BreadcrumbNav />
 			</div>
-			<div className="header-ri">
-				<span className="username">Hooks</span>
+			<div className='header-ri'>
+				<span className='username'>Hooks</span>
 				<AvatarIcon />
 			</div>
 		</Header>

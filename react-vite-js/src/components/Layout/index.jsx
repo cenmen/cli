@@ -9,12 +9,13 @@ import './index.less';
 const { Sider, Content } = Layout;
 
 const LayoutIndex = props => {
+	const { children, isCollapse, updateCollapse } = props;
 	// 监听窗口大小变化
 	const listeningWindowResize = () => {
 		window.addEventListener('resize', () => {
 			let screenWidth = document.body.clientWidth;
-			if (props.isCollapse === false && screenWidth < 1200) props.updateCollapse(true);
-			if (props.isCollapse === false && screenWidth > 1200) props.updateCollapse(false);
+			if (isCollapse === false && screenWidth < 1200) updateCollapse(true);
+			if (isCollapse === false && screenWidth > 1200) updateCollapse(false);
 		});
 	};
 
@@ -23,15 +24,13 @@ const LayoutIndex = props => {
 	}, []);
 
 	return (
-		<section className="container">
-			<Sider trigger={null} collapsed={props.isCollapse} width={220} theme="dark">
+		<section className='container'>
+			<Sider trigger={null} collapsed={isCollapse} width={220} theme='dark'>
 				<LayoutMenu></LayoutMenu>
 			</Sider>
 			<Layout>
 				<LayoutHeader></LayoutHeader>
-				<Content>
-					<Outlet></Outlet>
-				</Content>
+				<Content>{children ? children : <Outlet></Outlet>}</Content>
 			</Layout>
 		</section>
 	);

@@ -38,9 +38,9 @@ module.exports = {
 		'plugin:prettier/recommended'
 	],
 	/*
-	 * "off" 或 0    ==>  关闭规则
-	 * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
-	 * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
+	 * "off" 或 0    =>  关闭规则
+	 * "warn" 或 1   =>  打开的规则作为警告（不影响代码执行）
+	 * "error" 或 2  =>  规则作为一个错误（代码不能执行，界面报错）
 	 */
 	rules: {
 		// eslint (http://eslint.cn/docs/rules)
@@ -55,6 +55,7 @@ module.exports = {
 		// react (https://github.com/jsx-eslint/eslint-plugin-react)
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'off',
-		'react/prop-types': 'off'
+		'react/prop-types': 'off',
+		'react/display-name': 'off'
 	}
 };
