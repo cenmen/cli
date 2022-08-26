@@ -26,12 +26,11 @@ export class UserService {
   }
 
   async getUserList(query: QueryUserDto) {
-    const { page, pageSize, username, ...rest } = query;
+    const { page = 1, pageSize = 10, username, ...rest } = query;
     const offset = (page - 1) * pageSize;
-    console.log('🚀 ~ getUserList ~ query', query);
     const users = await this.userRepository.find({
       where: {
-        username: Like(`%${username}%`),
+        username: Like(`%${username || '_'}%`),
         ...rest,
       },
       order: {
@@ -41,12 +40,15 @@ export class UserService {
       take: pageSize,
       cache: true,
     });
-    console.log('🚀 ~ getUserList ~ users', users);
     return users;
   }
 
   async getUserInfo(id: string) {
-    return await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new HttpException('用户不存在', HttpStatus.BAD_REQUEST);
+    }
+    return user;
   }
 
   async updateUserInfo(id: string, userInfo: UpdateUserDto) {

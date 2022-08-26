@@ -1,14 +1,16 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, Min, Max } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsOptional, IsInt, Min, Max } from 'class-validator';
 
 export class BasePageQuery {
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Type(() => Number)
   @ApiPropertyOptional({ description: '页数', default: 1 })
-  page = 1;
+  page: number;
 
+  @IsOptional()
   @IsInt()
   @Min(10)
   @Max(200)

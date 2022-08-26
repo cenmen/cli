@@ -8,4 +8,8 @@ const config = {
   prod: prodConfig,
 };
 
-export default () => config[NODE_ENV];
+export default () => ({
+  ...config[NODE_ENV],
+  IS_DEV: NODE_ENV === 'dev',
+  IS_PROD: NODE_ENV === 'prod',
+});
