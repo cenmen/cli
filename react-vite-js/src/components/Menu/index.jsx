@@ -6,7 +6,6 @@ import { getOpenKeys } from '@/utils';
 import { setMenuList } from '@/redux/modules/layout/action';
 import { setBreadcrumbList } from '@/redux/modules/layout/action';
 import Logo from './components/Logo';
-import './index.less';
 
 const LayoutMenu = props => {
 	const { menuList } = props;
@@ -35,7 +34,7 @@ const LayoutMenu = props => {
 	}, [pathname, props.isCollapse]);
 
 	return (
-		<div className='menu'>
+		<div className='flex flex-col justify-between'>
 			<Logo></Logo>
 			<Menu
 				theme='dark'

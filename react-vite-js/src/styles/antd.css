@@ -1,0 +1,54 @@
+/* 覆盖 antd 样式 */
+.ant-layout-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 60px;
+	padding: 0 40px 0 20px;
+	background-color: #ffffff;
+	border-bottom: 1px solid #f6f6f6;
+}
+.ant-layout-content {
+	overflow-y: auto;
+}
+.ant-layout-content::-webkit-scrollbar {
+	width: 8px;
+}
+.ant-layout-content::-webkit-scrollbar-track {
+	background-color: #e4e4e4;
+	border-radius: 100px;
+}
+.ant-layout-content::-webkit-scrollbar-thumb {
+	background-color: #c1c1c1;
+	border-radius: 100px;
+}
+.ant-layout-sider::-webkit-scrollbar {
+	background-color: #001529;
+}
+.ant-layout-sider::-webkit-scrollbar-thumb {
+	background-color: #41444b;
+}
+.ant-menu-root {
+	flex: 1;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/* 去除菜单 Loading 遮罩层 */
+.ant-spin-nested-loading,
+.ant-spin-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+.ant-spin {
+	max-height: 100% !important;
+}
+.ant-spin-container::after {
+	background: transparent !important;
+}
+.ant-spin-blur {
+	overflow: auto !important;
+	clear: none !important;
+	opacity: 1 !important;
+}

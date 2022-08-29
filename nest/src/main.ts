@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { TransformInterceptor } from './core/interceptor/transform.interceptor';
 import { AllExceptionsFilter } from './core/filter/allException.filter';
-import { MyLogger } from './modules/logger/mylogger.service';
+import { MyLogger } from './core/logger/mylogger.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {

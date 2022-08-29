@@ -12,8 +12,12 @@ yarn
 ```text
 # 开发环境
 npm run dev
+
 # 测试环境
 npm run tst
+
+# 生产环境
+npm run prod
 ```
 
 - **Build：**
@@ -26,7 +30,7 @@ npm run build:dev
 npm run build:tst
 
 # 生产环境
-npm run build:pro
+npm run build:prod
 ```
 
 - **Lint：**
@@ -37,9 +41,6 @@ npm run lint:eslint
 
 # prettier 格式化代码
 npm run lint:prettier
-
-# stylelint 格式化样式
-lint:stylelint
 ```
 
 ## 📚 文件资源目录
@@ -63,17 +64,17 @@ lint:stylelint
 │  ├─ App.jsx             # 入口页面
 │  ├─ Main.jsx            # 入口文件
 ├─ .env                   # vite 常用配置
+├─ .env.dev               # vite 常用配置（开发环境）
+├─ .env.tst               # vite 常用配置（测试环境）
+├─ .env.prod              # vite 常用配置（生产环境）
 ├─ .eslintignore          # 忽略 Eslint 校验
 ├─ .eslintrc.js           # Eslint 校验配置
 ├─ .gitignore             # git 提交忽略
 ├─ .prettierignore        # 忽略 prettier 格式化
 ├─ .prettierrc.js         # prettier 配置
-├─ .stylelintignore       # 忽略 stylelint 格式化
-├─ .stylelintrc.js        # stylelint 样式格式化配置
 ├─ index.html             # 入口 html
-├─ lint-staged.config     # lint-staged 配置文件
 ├─ package.json           # 依赖包管理
-├─ postcss.config.js      # postcss 配置
+├─ tailwind.config        # tailwind 配置
 ├─ vite.config.js         # vite 配置
 └─ README.md              # README 介绍
 ```
@@ -88,15 +89,9 @@ lint:stylelint
 - [react-redux](https://react-redux.js.org/introduction/getting-started)
 - [redux-persist](https://openbase.com/js/redux-persist)
 - [react-router-v6](https://reactrouter.com/docs/en/v6/getting-started/overview)
+- [tailwindcss](https://tailwindcss.com/)
 - [lodash](https://www.lodashjs.com/)
 - [dayjs](https://dayjs.fenxianglu.cn/category/)
-
-## 👀 开发指引
-
-- 引入自定义样式时文件名使用 xxx.module.less 命名规则，vite 构建时添加 hash 值防止样式被覆盖。
-- 组件或标签内使用 className="xxx" 字符串时可留意 styles 里面的全局样式。
-- 有时候修改代码后发现页面没有生效，可能是 vite 热更新没有触及到，请手动刷新页面。
-- react router v6 貌似不能定义可选参数的路径，例如：xxx/xxx/:mode/:id?，可以使用 state 进行传参，用 useLocation 接收，刷新不会丢失。
 
 ## 🌽 可能遇到的问题
 

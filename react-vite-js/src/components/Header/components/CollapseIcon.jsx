@@ -5,7 +5,7 @@ import { updateCollapse } from '@/redux/modules/layout/action';
 const CollapseIcon = props => {
 	return (
 		<div
-			className='collapsed'
+			className='mr-5 cursor-pointer'
 			onClick={() => {
 				props.updateCollapse(!props.isCollapse);
 			}}

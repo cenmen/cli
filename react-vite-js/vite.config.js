@@ -36,10 +36,6 @@ export default defineConfig(config => {
 				modules: {
 					// css模块化 文件以.module.[css|less|scss]结尾
 					generateScopedName: '[name]__[local]___[hash:base64:5]'
-				},
-				less: {
-					javascriptEnabled: true,
-					additionalData: `@import "@/styles/var.less";`
 				}
 			}
 		},

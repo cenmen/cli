@@ -1,7 +1,6 @@
 import { Button, Result } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { VIEW_WELCOME } from '@/constants/modules/route';
-import './index.less';
 
 const NotFound = () => {
 	const navigate = useNavigate();

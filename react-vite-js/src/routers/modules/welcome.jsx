@@ -1,5 +1,5 @@
 import LayoutIndex from '@/components/Layout';
-import Welcome from '@/views/welcome';
+import Welcome from '@/views/Welcome';
 import { VIEW_WELCOME } from '@/constants/modules/route';
 
 // 首页模块

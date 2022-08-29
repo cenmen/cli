@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import Login from '@/views/login/index';
+import Login from '@/views/Login/index';
 import { VIEW_LOGIN, VIEW_404 } from '@/constants/modules/route';
 import errorRouter from './modules/error';
 import weatherRouter from './modules/weather';

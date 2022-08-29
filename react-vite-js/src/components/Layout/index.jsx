@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updateCollapse } from '@/redux/modules/layout/action';
 import LayoutMenu from '../Menu';
 import LayoutHeader from '../Header';
-import './index.less';
 const { Sider, Content } = Layout;
 
 const LayoutIndex = props => {
@@ -24,7 +23,7 @@ const LayoutIndex = props => {
 	}, []);
 
 	return (
-		<section className='container'>
+		<Layout className='h-screen'>
 			<Sider trigger={null} collapsed={isCollapse} width={220} theme='dark'>
 				<LayoutMenu></LayoutMenu>
 			</Sider>
@@ -32,7 +31,7 @@ const LayoutIndex = props => {
 				<LayoutHeader></LayoutHeader>
 				<Content>{children ? children : <Outlet></Outlet>}</Content>
 			</Layout>
-		</section>
+		</Layout>
 	);
 };
 

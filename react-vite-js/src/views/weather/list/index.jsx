@@ -112,7 +112,7 @@ const List = () => {
 	return (
 		<div className='card-container'>
 			<Search onSearch={onSearch} />
-			<Space className='gap-top'>
+			<Space className='mt-2.5'>
 				<Button
 					type='primary'
 					icon={<PlusOutlined />}
@@ -121,7 +121,7 @@ const List = () => {
 					新建
 				</Button>
 			</Space>
-			<div className='gap-top'>
+			<div className='mt-2.5'>
 				<Table
 					rowKey='code'
 					dataSource={list}

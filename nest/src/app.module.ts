@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import envConfig from './config/env';
 import { ApiModule } from './modules/api/api.module';
+import { FileModule } from './modules/file/file.module';
 import { UserModule } from './modules/user/user.module';
 
 @Module({
@@ -21,6 +22,7 @@ import { UserModule } from './modules/user/user.module';
       },
     }),
     ApiModule,
+    FileModule,
     UserModule,
   ],
 })
