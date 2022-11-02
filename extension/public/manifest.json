@@ -1,0 +1,29 @@
+{
+  "name": "调试 chrome 插件脚手架",
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "description": "调试 chrome 插件脚手架",
+  "permissions": ["tabs", "notifications", "storage"],
+  "action": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:8880/*",
+        "https://card.weibo.com/article/v3/*",
+        "https://mp.weixin.qq.com/cgi-bin/appmsg*",
+        "https://mp.toutiao.com/profile_v4/graphic/publish*"
+      ],
+      "css": [],
+      "js": ["content-script.js"]
+    }
+  ],
+  "icons": {
+    "16": "/logo.png",
+    "32": "/logo.png",
+    "48": "/logo.png",
+    "128": "/logo.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

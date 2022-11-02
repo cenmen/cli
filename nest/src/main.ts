@@ -23,5 +23,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(6800);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
