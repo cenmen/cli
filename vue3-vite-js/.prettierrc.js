@@ -34,4 +34,6 @@ module.exports = {
 	htmlWhitespaceSensitivity: 'css',
 	// Vue文件脚本和样式标签缩进
 	vueIndentScriptAndStyle: false,
+	endOfLine: 'lf', //结束行形式
+	embeddedLanguageFormatting: 'auto', //对引用代码进行格式化
 };

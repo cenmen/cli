@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import eslintPlugin from 'vite-plugin-eslint';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { AUTH_API } from './src/config/env';
 
 // 将纯字符串配置转换类型
 const toTransformConfig = config => {
@@ -19,7 +20,7 @@ const toTransformConfig = config => {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd());
-	const { VITE_APP_TITLE, VITE_REPORT, VITE_PORT } = toTransformConfig(env);
+	const { VITE_APP_TITLE, VITE_REPORT, VITE_PORT, VITE_SOURCE_MAP } = toTransformConfig(env);
 	return {
 		plugins: [
 			vue(),
@@ -46,10 +47,21 @@ export default defineConfig(({ mode }) => {
 			// https: false,
 			port: VITE_PORT,
 			proxy: {
-				'/api': {
+				[AUTH_API]: {
 					target: `http://api.${mode}.com`,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, ''),
+					rewrite: path => path.replace(RegExp(`^/${AUTH_API}`), ''),
+				},
+			},
+		},
+		build: {
+			sourcemap: VITE_SOURCE_MAP,
+			minify: 'esbuild',
+			rollupOptions: {
+				output: {
+					chunkFileNames: 'assets/js/[name]-[hash].js',
+					entryFileNames: 'assets/js/[name]-[hash].js',
+					assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
 				},
 			},
 		},

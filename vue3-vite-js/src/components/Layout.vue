@@ -1,38 +1,21 @@
 <template>
 	<a-layout :style="{ minHeight: '100vh' }">
-		<a-layout-sider :collapsed="collapsed" :trigger="null" collapsible>
-			<div class="flex justify-center items-center py-2.5">
-				<img :src="logo" />
-				<span v-show="!collapsed" class="text-white text-lg ml-2">模板管理系统</span>
+		<a-layout-sider :collapsed="siderCollapsed" :trigger="null" collapsible>
+			<div class="flex justify-center items-center p-2.5">
+				<img class="w-6" :src="logo" />
+				<span v-show="!siderCollapsed" class="text-gray-300 text-base font-medium truncate ml-2">模板管理系统</span>
 			</div>
-			<a-menu :open-keys="openKeys" :selected-keys="selectedKeys" theme="dark" mode="inline" @click="onClickMenuItem">
-				<template v-for="item in menus" :key="item.path">
-					<a-menu-item v-if="!item.children" :key="item.path">
-						<template #icon>
-							<component :is="item.icon" />
-						</template>
-						<span>{{ item.title }}</span>
-					</a-menu-item>
-					<a-sub-menu v-else :key="item.path">
-						<template #icon>
-							<component :is="item.icon" />
-						</template>
-						<template #title>{{ item.title }}</template>
-						<a-menu-item v-for="child in item.children" :key="child.path">
-							{{ child.title }}
-						</a-menu-item>
-					</a-sub-menu>
-				</template>
-			</a-menu>
+			<Sider />
 		</a-layout-sider>
 		<a-layout>
-			<a-layout-header class="flex items-center" :style="{ height: '48px', padding: '0 16px', background: 'white' }">
-				<MenuUnfoldOutlined @click="() => (collapsed = !collapsed)" />
-			</a-layout-header>
+			<LayoutHeader />
+			<Tabbar />
 			<a-layout-content class="overflow-hidden">
 				<router-view v-slot="{ Component, route }">
-					<transition enter-active-class="transition-all duration-700" enter-from-class="opacity-0 -translate-x-16">
-						<component :is="Component" :key="route.fullPath" />
+					<transition enter-active-class="transition-all duration-1000" enter-from-class="opacity-0 -translate-x-16">
+						<keep-alive>
+							<component :is="Component" :key="route.fullPath" />
+						</keep-alive>
 					</transition>
 				</router-view>
 			</a-layout-content>
@@ -41,40 +24,34 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs } from 'vue';
-import { HomeOutlined, UserOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
-import { useRoute, useRouter } from 'vue-router';
-import logo from '@/assets/images/logo.svg';
+import { defineComponent } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useLayoutStore } from '@/store';
 import { menus } from '@/router';
+import logo from '@/assets/images/logo.svg';
+import Header from './Header.vue';
+import Sider from './Sider.vue';
+import Tabbar from './Tabbar.vue';
 
 export default defineComponent({
 	components: {
-		HomeOutlined,
-		UserOutlined,
-		MenuUnfoldOutlined,
+		Sider,
+		Tabbar,
+		LayoutHeader: Header,
 	},
 
 	setup() {
-		const state = reactive({
-			openKeys: [],
-			selectedKeys: ['/'],
-			collapsed: false,
-		});
-		const router = useRouter();
-		const currentRoute = useRoute();
-		state.selectedKeys = currentRoute.matched.map(val => val.path);
-		state.openKeys = state.selectedKeys[0];
+		const layoutStore = useLayoutStore();
 
-		const onClickMenuItem = ({ key, keyPath }) => {
-			router.push({ path: key });
-			state.selectedKeys = keyPath;
+		const onChangeCollapsed = () => {
+			layoutStore.$patch({ siderCollapsed: !layoutStore.siderCollapsed });
 		};
 
 		return {
 			logo,
 			menus,
-			...toRefs(state),
-			onClickMenuItem,
+			...storeToRefs(layoutStore),
+			onChangeCollapsed,
 		};
 	},
 });

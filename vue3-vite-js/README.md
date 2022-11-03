@@ -4,6 +4,9 @@
 - ✅ 内容渐入
 - 权限
 - ✅ prettier + eslint
+- ✅ 三级菜单
+- ✅ 头像
+- tabbar
 
 ## Docs
 
