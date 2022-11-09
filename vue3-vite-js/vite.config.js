@@ -18,8 +18,9 @@ const toTransformConfig = config => {
 };
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
 	const env = loadEnv(mode, process.cwd());
+	const IS_BUILD = command === 'build';
 	const { VITE_APP_TITLE, VITE_REPORT, VITE_PORT, VITE_SOURCE_MAP } = toTransformConfig(env);
 	return {
 		plugins: [
@@ -31,6 +32,9 @@ export default defineConfig(({ mode }) => {
 				inject: {
 					data: {
 						title: VITE_APP_TITLE,
+						injectScript: IS_BUILD
+							? `<script src="/script.${mode}.js?t=${Date.now()}"></script>`
+							: `<script src="/public/script.${mode}.js"></script>`,
 					},
 				},
 			}),

@@ -1,12 +1,26 @@
-import http from '@/api';
-import * as api from '../api';
+import http from '../http';
+import { AUTH_API } from '@/config/env';
+import { AUTH_KEYS } from '@/constants';
 
 /**
  * @namespace 角色权限模块
  */
 
-// 获取权限列表
-export const getAuthInfo = params => http.get(`${api.auth}/authInfo`, { params });
+/**
+ * 获取权限列表
+ * @returns {Promise<any>}
+ */
+export const getAuthInfo = () => {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			const data = Object.values(AUTH_KEYS);
+			resolve(data);
+		}, 1500);
+	});
+};
 
-// 获取用户信息
-export const getUserInfo = () => http.get(`${api.auth}/userInfo`);
+/**
+ * 获取用户信息
+ * @returns {Promise<any>}
+ */
+export const getUserInfo = () => http.get(`${AUTH_API}/userInfo`);

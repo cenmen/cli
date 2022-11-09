@@ -6,10 +6,12 @@
 		<div>
 			<a-popover placement="bottomRight">
 				<template #content>
-					<a-row class="cursor-default" align="middle">
-						<LogoutOutlined />
-						<span class="ml-1">退出登录</span>
-					</a-row>
+					<div class="p-2.5">
+						<a-row class="cursor-default" align="middle">
+							<LogoutOutlined />
+							<span class="ml-1">退出登录</span>
+						</a-row>
+					</div>
 				</template>
 				<a-avatar src="https://joeschmoe.io/api/v1/random" @mouseenter="onEnterAvatar" />
 			</a-popover>

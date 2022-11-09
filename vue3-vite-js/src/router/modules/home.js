@@ -1,10 +1,10 @@
-import Layout from '@/components/Layout.vue';
+import Layout from '@/layout/Layout.vue';
 
 export default {
 	path: '/',
 	redirect: '/home',
 	component: Layout,
-	meta: { title: '首页', icon: 'HomeOutlined' },
+	meta: { title: '首页', icon: 'HomeOutlined', root: true },
 	children: [
 		{
 			name: 'home',

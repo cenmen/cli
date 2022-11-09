@@ -1,5 +1,5 @@
 <template>
-	<a-menu :open-keys="openKeys" :selected-keys="selectedKeys" theme="dark" mode="inline" @click="onClickMenuItem">
+	<a-menu :open-keys="openKeys" :selected-keys="exactSelectedKeys" theme="dark" mode="inline" @click="onClickMenuItem">
 		<template v-for="menuItem in menus" :key="menuItem.path">
 			<a-menu-item v-if="!menuItem.children" :key="menuItem.path">
 				<template #icon>
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import { defineComponent, reactive, toRefs, watch } from 'vue';
+import { computed, defineComponent, reactive, toRefs, onMounted, watch } from 'vue';
 import { HomeOutlined, UserOutlined, BarsOutlined } from '@ant-design/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { menus } from '@/router';
+import { useLayoutStore } from '@/store';
 
 export default defineComponent({
 	components: {
@@ -43,37 +43,63 @@ export default defineComponent({
 
 	setup() {
 		const state = reactive({
-			openKeys: [],
-			selectedKeys: ['/'],
+			menus: [],
+			exactOpenKeys: [],
+			exactSelectedKeys: ['/'],
 		});
 		const router = useRouter();
 		const currentRoute = useRoute();
-		state.selectedKeys = currentRoute.matched.map(val => val.path);
-		state.openKeys = state.selectedKeys.slice(0, -1);
+		const layoutStore = useLayoutStore();
+		state.exactSelectedKeys = currentRoute.matched.map(val => val.path);
+		state.exactOpenKeys = state.exactSelectedKeys.slice(0, -1);
+		const openKeys = computed(() => (layoutStore.siderCollapsed ? [] : state.exactOpenKeys));
+
+		// 根据路由转换菜单（二三级）
+		const updateMenuOnRouter = () => {
+			const routers = router.getRoutes().filter(val => val.meta.root);
+			state.menus = routers.reduce((total, cur) => {
+				const parent = { path: cur.path, ...cur.meta };
+				if (parent.isHide) return total;
+				const items = cur.children.filter(val => val.meta && !val.meta.isHide);
+				const childs = items.map(item => {
+					const current = { path: item.path, ...item.meta };
+					if (item.children) current.children = item.children.map(val => ({ path: val.path, ...val.meta }));
+					return current;
+				});
+				if (childs.length > 0) {
+					parent.children = childs;
+				}
+				return [...total, parent];
+			}, []);
+		};
 
 		const onClickMenuItem = ({ key, keyPath }) => {
-			state.selectedKeys = keyPath;
+			state.exactSelectedKeys = keyPath;
 			router.push({ path: key });
 		};
 
 		const onClickSubMenu = ({ path }) => {
-			state.openKeys = [path];
+			state.exactOpenKeys = [path];
 		};
 
 		const onClickSecondSubMenu = ({ path }) => {
-			state.openKeys.push(path);
+			state.exactOpenKeys.push(path);
 		};
 
 		watch(
 			() => currentRoute.fullPath,
 			() => {
-				state.selectedKeys = currentRoute.matched.map(val => val.path);
-				state.openKeys = state.selectedKeys.slice(0, -1);
+				state.exactSelectedKeys = currentRoute.matched.map(val => val.path);
+				state.exactOpenKeys = state.exactSelectedKeys.slice(0, -1);
 			}
 		);
 
+		onMounted(() => {
+			updateMenuOnRouter();
+		});
+
 		return {
-			menus,
+			openKeys,
 			...toRefs(state),
 			onClickMenuItem,
 			onClickSubMenu,

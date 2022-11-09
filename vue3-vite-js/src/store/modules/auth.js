@@ -5,7 +5,7 @@ export const useAuthStore = defineStore({
 	state: () => ({
 		authInfo: {},
 		userInfo: {},
-		token: '123',
+		token: '',
 	}),
 	persist: {
 		paths: ['authInfo', 'userInfo', 'token'],

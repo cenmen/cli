@@ -13,7 +13,7 @@
 			<a-layout-content class="overflow-hidden">
 				<router-view v-slot="{ Component, route }">
 					<transition enter-active-class="transition-all duration-1000" enter-from-class="opacity-0 -translate-x-16">
-						<keep-alive>
+						<keep-alive :include="keepAliveIncludeItems">
 							<component :is="Component" :key="route.fullPath" />
 						</keep-alive>
 					</transition>
@@ -24,10 +24,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, computed, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/store';
-import { menus } from '@/router';
 import logo from '@/assets/images/logo.svg';
 import Header from './Header.vue';
 import Sider from './Sider.vue';
@@ -42,14 +41,22 @@ export default defineComponent({
 
 	setup() {
 		const layoutStore = useLayoutStore();
+		const keepAliveIncludeItems = computed(() => layoutStore.tabbarItems.map(val => val.path));
 
 		const onChangeCollapsed = () => {
 			layoutStore.$patch({ siderCollapsed: !layoutStore.siderCollapsed });
 		};
 
+		onMounted(() => {
+			window.addEventListener('resize', () => {
+				const screenWidth = document.body.clientWidth;
+				if (layoutStore.siderCollapsed === false && screenWidth < 1300) layoutStore.$patch({ siderCollapsed: true });
+			});
+		});
+
 		return {
 			logo,
-			menus,
+			keepAliveIncludeItems,
 			...storeToRefs(layoutStore),
 			onChangeCollapsed,
 		};
