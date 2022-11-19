@@ -3,8 +3,7 @@ import * as types from '@/redux/mutation-types';
 
 const layoutState = {
 	isCollapse: false,
-	menuList: [],
-	breadcrumbList: []
+	currentTabList: []
 };
 
 const layout = (state = layoutState, action) =>
@@ -13,11 +12,8 @@ const layout = (state = layoutState, action) =>
 			case types.UPDATE_COLLAPSE:
 				draftState.isCollapse = action.isCollapse;
 				break;
-			case types.SET_MENU_LIST:
-				draftState.menuList = action.menuList;
-				break;
-			case types.SET_BREADCRUMB_LIST:
-				draftState.breadcrumbList = action.breadcrumbList;
+			case types.SET_CURRENT_TAB_LIST:
+				draftState.currentTabList = action.tabList;
 				break;
 			default:
 				return draftState;

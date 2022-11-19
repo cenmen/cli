@@ -1,10 +1,13 @@
+import moment from 'moment';
 import { Suspense } from 'react';
 import { Provider } from 'react-redux';
-import zhCN from 'antd/es/locale/zh_CN';
 import { ConfigProvider, Spin } from 'antd';
 import { PersistGate } from 'redux-persist/integration/react';
+import zhCN from 'antd/es/locale/zh_CN';
+import 'moment/dist/locale/zh-cn';
 import { store, persistor } from '@/redux';
-import Router from '@/components/Router';
+import Router from '@/layout/Router';
+moment.locale('zh-cn');
 
 const App = () => {
 	return (

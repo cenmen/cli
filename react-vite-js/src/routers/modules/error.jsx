@@ -1,14 +1,13 @@
-import React from 'react';
-import lazyLoad from '@/routers/utils/lazyLoad';
-import { VIEW_404 } from '@/constants/modules/route';
+import { VIEW_404 } from '@/constants';
+import NotFound from '@/views/Error/404';
 
 // 错误页面模块
 const errorRouter = [
 	{
 		isHide: true,
+		title: '404',
 		path: VIEW_404,
-		element: lazyLoad(React.lazy(() => import('@/views/Error/404'))),
-		title: '404页面'
+		element: <NotFound />
 	}
 ];
 

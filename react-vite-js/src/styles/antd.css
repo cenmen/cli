@@ -10,6 +10,8 @@
 }
 .ant-layout-content {
 	overflow-y: auto;
+	overflow-x: hidden;
+	box-sizing: border-box;
 }
 .ant-layout-content::-webkit-scrollbar {
 	width: 8px;
@@ -22,33 +24,9 @@
 	background-color: #c1c1c1;
 	border-radius: 100px;
 }
-.ant-layout-sider::-webkit-scrollbar {
-	background-color: #001529;
+.ant-popover-inner-content {
+	padding: 0;
 }
-.ant-layout-sider::-webkit-scrollbar-thumb {
-	background-color: #41444b;
-}
-.ant-menu-root {
-	flex: 1;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-/* 去除菜单 Loading 遮罩层 */
-.ant-spin-nested-loading,
-.ant-spin-container {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-.ant-spin {
-	max-height: 100% !important;
-}
-.ant-spin-container::after {
-	background: transparent !important;
-}
-.ant-spin-blur {
-	overflow: auto !important;
-	clear: none !important;
-	opacity: 1 !important;
+.ant-tag svg {
+	vertical-align: baseline;
 }

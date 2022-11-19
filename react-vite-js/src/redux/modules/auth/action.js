@@ -1,5 +1,4 @@
 import * as types from '@/redux/mutation-types';
-import { getAuthInfo } from '@/api/modules/login';
 
 export const setTokenInfo = tokenInfo => ({
 	type: types.SET_TOKEN_INFO,
@@ -11,12 +10,12 @@ export const setAuthInfo = authInfo => ({
 	authInfo
 });
 
-export const setAuthInfoActionThunk = () => {
-	return async dispatch => {
-		const data = await getAuthInfo();
-		dispatch({
-			type: types.SET_AUTH_INFO,
-			authInfo: data
-		});
-	};
-};
+export const setUserInfo = userInfo => ({
+	type: types.SET_USER_INFO,
+	userInfo
+});
+
+export const setCurrentRouter = currentRouter => ({
+	type: types.SET_CURRENT_ROUTER,
+	currentRouter
+});

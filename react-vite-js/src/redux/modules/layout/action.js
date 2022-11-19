@@ -5,12 +5,7 @@ export const updateCollapse = isCollapse => ({
 	isCollapse
 });
 
-export const setMenuList = menuList => ({
-	type: types.SET_MENU_LIST,
-	menuList
-});
-
-export const setBreadcrumbList = breadcrumbList => ({
-	type: types.SET_BREADCRUMB_LIST,
-	breadcrumbList
+export const setCurrentTabList = tabList => ({
+	type: types.SET_CURRENT_TAB_LIST,
+	tabList
 });

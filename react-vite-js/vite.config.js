@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { createHtmlPlugin } from 'vite-plugin-html';
-import viteCompression from 'vite-plugin-compression';
 import eslintPlugin from 'vite-plugin-eslint';
+import { AUTH_API, HERO_API } from './src/config/env';
 
 // 将纯字符串配置转换类型
 const toTransformConfig = config => {
@@ -19,10 +19,10 @@ const toTransformConfig = config => {
 };
 
 // @see: https://vitejs.dev/config/
-export default defineConfig(config => {
-	const env = loadEnv(config.mode, process.cwd());
-	const viteEnv = toTransformConfig(env);
-	console.log('==> [viteEnv]', viteEnv);
+export default defineConfig(({ mode, command }) => {
+	const env = loadEnv(mode, process.cwd());
+	const IS_BUILD = command === 'build';
+	const { VITE_PORT, VITE_OPEN, VITE_APP_TITLE, VITE_REPORT, VITE_SOURCE_MAP } = toTransformConfig(env);
 
 	return {
 		// base: "/",
@@ -31,72 +31,47 @@ export default defineConfig(config => {
 				'@': resolve(__dirname, './src')
 			}
 		},
-		css: {
-			preprocessorOptions: {
-				modules: {
-					// css模块化 文件以.module.[css|less|scss]结尾
-					generateScopedName: '[name]__[local]___[hash:base64:5]'
-				}
-			}
-		},
-		// server config
 		server: {
-			host: '0.0.0.0', // 服务器主机名，如果允许外部访问，可设置为"0.0.0.0"
-			port: viteEnv.VITE_PORT,
-			open: viteEnv.VITE_OPEN,
 			cors: true,
+			port: VITE_PORT,
+			open: VITE_OPEN,
 			// https: false,
-			// 代理跨域（mock 不需要配置，这里只是个事列）
 			proxy: {
-				'/weather': {
-					target: 'https://weather.cma.cn',
+				[AUTH_API]: {
+					target: `http://api.${mode}.com`,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/weather/, '')
+					rewrite: path => path.replace(RegExp(`^${AUTH_API}`), '')
+				},
+				[HERO_API]: {
+					target: `https://game.gtimg.cn/images/lol`,
+					changeOrigin: true,
+					rewrite: path => path.replace(new RegExp(`^${HERO_API}`), '')
 				}
 			}
 		},
-		// plugins
 		plugins: [
 			react(),
+			// EsLint 报错信息显示在浏览器界面上
+			eslintPlugin({
+				include: ['src/**/*.js', 'src/**/*.jsx', 'src/*.js', 'src/*.jsx']
+			}),
 			createHtmlPlugin({
 				inject: {
 					data: {
-						title: viteEnv.VITE_GLOB_APP_TITLE
+						title: VITE_APP_TITLE,
+						injectScript: IS_BUILD
+							? `<script src="/script.${mode}.js?t=${Date.now()}"></script>`
+							: `<script src="/public/script.${mode}.js"></script>`
 					}
 				}
 			}),
-			// * EsLint 报错信息显示在浏览器界面上
-			eslintPlugin(),
-			// * 是否生成包预览
-			viteEnv.VITE_REPORT && visualizer(),
-			// * gzip compress
-			viteEnv.VITE_BUILD_GZIP &&
-				viteCompression({
-					verbose: true,
-					disable: false,
-					threshold: 10240,
-					algorithm: 'gzip',
-					ext: '.gz'
-				})
+			VITE_REPORT && visualizer()
 		],
-		esbuild: {
-			pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
-		},
-		// build configure
 		build: {
-			outDir: 'dist',
-			// esbuild 打包更快，但是不能去除 console.log，去除 console 使用 terser 模式
+			sourcemap: VITE_SOURCE_MAP,
 			minify: 'esbuild',
-			// minify: "terser",
-			// terserOptions: {
-			// 	compress: {
-			// 		drop_console: viteEnv.VITE_DROP_CONSOLE,
-			// 		drop_debugger: true
-			// 	}
-			// },
 			rollupOptions: {
 				output: {
-					// Static resource classification and packaging
 					chunkFileNames: 'assets/js/[name]-[hash].js',
 					entryFileNames: 'assets/js/[name]-[hash].js',
 					assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'

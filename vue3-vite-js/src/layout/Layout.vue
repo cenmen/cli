@@ -11,7 +11,8 @@
 			<LayoutHeader />
 			<Tabbar />
 			<a-layout-content class="overflow-hidden">
-				<router-view v-slot="{ Component, route }">
+				<Error v-if="isError" />
+				<router-view v-else v-slot="{ Component, route }">
 					<transition enter-active-class="transition-all duration-1000" enter-from-class="opacity-0 -translate-x-16">
 						<keep-alive :include="keepAliveIncludeItems">
 							<component :is="Component" :key="route.fullPath" />
@@ -24,22 +25,27 @@
 </template>
 
 <script>
-import { defineComponent, computed, onMounted } from 'vue';
+import { defineComponent, computed, onMounted, onErrorCaptured, reactive, toRefs } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/store';
 import logo from '@/assets/images/logo.svg';
 import Header from './Header.vue';
 import Sider from './Sider.vue';
 import Tabbar from './Tabbar.vue';
+import Error from './Error.vue';
 
 export default defineComponent({
 	components: {
 		Sider,
 		Tabbar,
+		Error,
 		LayoutHeader: Header,
 	},
 
 	setup() {
+		const state = reactive({
+			isError: false,
+		});
 		const layoutStore = useLayoutStore();
 		const keepAliveIncludeItems = computed(() => layoutStore.tabbarItems.map(val => val.path));
 
@@ -54,9 +60,16 @@ export default defineComponent({
 			});
 		});
 
+		onErrorCaptured(err => {
+			state.isError = true;
+			console.error('--> onErrorCaptured.err', err);
+			return false;
+		});
+
 		return {
 			logo,
 			keepAliveIncludeItems,
+			...toRefs(state),
 			...storeToRefs(layoutStore),
 			onChangeCollapsed,
 		};

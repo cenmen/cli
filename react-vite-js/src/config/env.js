@@ -1,9 +1,14 @@
-const env = import.meta.env;
+let exports = {};
 
-export const ENV = env.MODE;
-export const IS_DEV = env.DEV;
-export const IS_PROD = env.PROD;
-export const BASE_API = env.VITE_BASE_API;
-export const WEATHER_API = env.VITE_WEATHER_API;
+try {
+	if (window && window.ENV_CONFIG) exports = window.ENV_CONFIG;
+} catch (error) {
+	// console.log('🚀 ~ error', error);
+}
 
-console.log('==> [env]', env);
+// 代理转发请求
+exports.AUTH_API = '/authApi';
+exports.HERO_API = '/dataApi';
+
+export const { ENV, AUTH_API, HERO_API } = exports;
+console.log('🚀 ~ exports', exports);

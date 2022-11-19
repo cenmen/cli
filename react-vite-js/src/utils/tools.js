@@ -1,4 +1,4 @@
-import { clone } from 'lodash';
+import { clone } from 'lodash-es';
 import { parse } from 'qs';
 import { store } from '@/redux';
 
