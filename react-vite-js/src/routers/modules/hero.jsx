@@ -10,7 +10,8 @@ import {
 	VIEW_HERO_DETAIL,
 	VIEW_HERO_BLANK,
 	VIEW_HERO_BLANK_1,
-	VIEW_HERO_BLANK_2
+	VIEW_HERO_BLANK_2,
+	VIEW_HERO_BLANK_3
 } from '@/constants';
 
 // 数据模块
@@ -46,16 +47,23 @@ const heroRouter = [
 				redirect: VIEW_HERO_BLANK_1,
 				children: [
 					{
-						title: '调试权限 - 1',
+						title: '调试权限 - keepAlive',
 						path: VIEW_HERO_BLANK_1,
 						element: lazyLoad(React.lazy(() => import('@/views/Hero/Blank'))),
-						auth: AUTH_KEYS.PAGE_HERO_BLANK_1
+						auth: AUTH_KEYS.PAGE_HERO_BLANK_1,
+						keepAlive: true
 					},
 					{
-						title: '调试权限 - 2（无权限）',
+						title: '调试权限 - noKeepAlive',
 						path: VIEW_HERO_BLANK_2,
 						element: lazyLoad(React.lazy(() => import('@/views/Hero/Blank'))),
 						auth: AUTH_KEYS.PAGE_HERO_BLANK_2
+					},
+					{
+						title: '调试权限 - 2（无权限）',
+						path: VIEW_HERO_BLANK_3,
+						element: lazyLoad(React.lazy(() => import('@/views/Hero/Blank'))),
+						auth: AUTH_KEYS.PAGE_HERO_BLANK_3
 					}
 				]
 			}

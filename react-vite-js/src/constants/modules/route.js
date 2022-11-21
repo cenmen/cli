@@ -7,3 +7,4 @@ export const VIEW_HERO_DETAIL = '/hero/detail/:id';
 export const VIEW_HERO_BLANK = '/hero/blank';
 export const VIEW_HERO_BLANK_1 = '/hero/blank/1';
 export const VIEW_HERO_BLANK_2 = '/hero/blank/2';
+export const VIEW_HERO_BLANK_3 = '/hero/blank/3';

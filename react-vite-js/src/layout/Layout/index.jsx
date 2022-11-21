@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import { useOutlet, useLocation, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import { updateCollapse } from '@/redux/modules/layout/action';
 import LayoutMenu from '../Menu';
 import LayoutHeader from '../Header';
 import LayoutTabbar from '../Tabbar';
+import KeepAlive from '../KeepAlive';
 const { Sider, Content } = Layout;
 
 const getTargetRouteItem = (pathname, routes) => {
@@ -19,6 +20,17 @@ const getTargetRouteItem = (pathname, routes) => {
 	}
 };
 
+const getKeepAliveItems = routes => {
+	return routes.reduce((total, cur) => {
+		if (cur.keepAlive) total.push(cur.path);
+		if (cur.children) {
+			const includes = getKeepAliveItems(cur.children);
+			total.push(...includes);
+		}
+		return total;
+	}, []);
+};
+
 const Transition = props => {
 	const animates = useSpring({ reset: true, to: { opacity: 1, translateX: 0 }, from: { opacity: 0, translateX: -150 } });
 	return <animated.div style={animates}>{props.children}</animated.div>;
@@ -26,6 +38,8 @@ const Transition = props => {
 
 const LayoutIndex = props => {
 	const { children, currentRouter, isCollapse, updateCollapse } = props;
+	const [includeItems, setIncludeItems] = useState(null);
+	const [excludeItems, setExcludeItems] = useState(null);
 	const outlet = useOutlet();
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
@@ -48,6 +62,11 @@ const LayoutIndex = props => {
 		if (target && target.redirect) navigate(target.redirect);
 	}, [pathname, currentRouter]);
 
+	useEffect(() => {
+		const includes = getKeepAliveItems(currentRouter);
+		setIncludeItems(includes);
+	}, [currentRouter]);
+
 	return (
 		<Layout className='h-screen'>
 			<Sider trigger={null} collapsed={isCollapse} width={220} theme='dark'>
@@ -57,7 +76,11 @@ const LayoutIndex = props => {
 				<LayoutHeader />
 				<LayoutTabbar />
 				<Content>
-					<Transition>{children ? children : outlet}</Transition>
+					<Transition>
+						<KeepAlive include={includeItems} exclude={excludeItems}>
+							{children ? children : outlet}
+						</KeepAlive>
+					</Transition>
 				</Content>
 			</Layout>
 		</Layout>
