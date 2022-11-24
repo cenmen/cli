@@ -1,3 +1,4 @@
+// 权限值
 export const AUTH_KEYS = {
 	PAGE_HERO_LIST: 'page_hero_list',
 	PAGE_HERO_DETAIL: 'page_hero_detail',

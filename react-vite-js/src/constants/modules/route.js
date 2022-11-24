@@ -1,3 +1,4 @@
+// 页面地址
 export const VIEW_404 = '/404';
 export const VIEW_HOME = '/home';
 export const VIEW_HERO = '/hero';

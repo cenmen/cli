@@ -3,7 +3,7 @@
 - **Install：**
 
 ```text
-# node > 14.18.0
+# node > 14.18.0 (16.15.0)
 yarn
 ```
 
@@ -50,11 +50,14 @@ npm run lint:prettier
 ├─ src
 │  ├─ api                 # API 接口管理
 │  ├─ assets              # 静态资源文件
-│  ├─ components          # 全局组件
+│  ├─ components          # 公用组件
+│  ├─ layout              # 布局组件
 │  ├─ ├─ Header           # 布局头部组件
+│  ├─ ├─ KeepAlive        # 存状态组件（慎用）
 │  ├─ ├─ Layout           # 整体布局组件
 │  ├─ ├─ Menu             # 左侧菜单布局组件
 │  ├─ ├─ Router           # 路由加载组件（初始化权限路由 重要）
+│  ├─ ├─ Tabbar           # 标签栏
 │  ├─ constants           # 全局常量
 │  ├─ routers             # 路由管理
 │  ├─ redux               # 状态中心管理
@@ -62,7 +65,7 @@ npm run lint:prettier
 │  ├─ utils               # 工具库
 │  ├─ views               # 项目所有页面
 │  ├─ App.jsx             # 入口页面
-│  ├─ Main.jsx            # 入口文件
+│  ├─ main.jsx            # 入口文件
 ├─ .env                   # vite 常用配置
 ├─ .env.dev               # vite 常用配置（开发环境）
 ├─ .env.tst               # vite 常用配置（测试环境）
@@ -74,25 +77,8 @@ npm run lint:prettier
 ├─ .prettierrc.js         # prettier 配置
 ├─ index.html             # 入口 html
 ├─ package.json           # 依赖包管理
-├─ tailwind.config        # tailwind 配置
+├─ postcss.config.js      # postcss 配置
+├─ tailwind.config.js     # tailwind 配置
 ├─ vite.config.js         # vite 配置
 └─ README.md              # README 介绍
 ```
-
-## 🦑 参考链接
-
-- [vite](https://cn.vitejs.dev/guide/)
-- [react](https://zh-hans.reactjs.org/docs/getting-started.html)
-- [antd](https://ant.design/components/overview-cn/)
-- [axios](https://www.axios-http.cn/)
-- [immer](https://immerjs.github.io/immer/zh-CN/)
-- [react-redux](https://react-redux.js.org/introduction/getting-started)
-- [redux-persist](https://openbase.com/js/redux-persist)
-- [react-router-v6](https://reactrouter.com/docs/en/v6/getting-started/overview)
-- [tailwindcss](https://tailwindcss.com/)
-- [lodash](https://www.lodashjs.com/)
-- [dayjs](https://dayjs.fenxianglu.cn/category/)
-
-## 🌽 可能遇到的问题
-
-- [HMR error: Cannot access '...' before initialization](https://github.com/vitejs/vite/issues/4430)

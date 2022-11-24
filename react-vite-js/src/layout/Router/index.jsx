@@ -4,7 +4,7 @@ import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { cloneDeep, omit } from 'lodash-es';
 import { setAuthInfo, setCurrentRouter } from '@/redux/modules/auth/action';
 import { routers } from '@/routers';
-import { fetchAuthInfo } from '@/api/modules/auth';
+import { fetchAuthInfo } from '@/api';
 
 // 默认父级菜单下没有子菜单则过滤掉父菜单
 const getAuthRoutes = (authInfo, routes) => {
