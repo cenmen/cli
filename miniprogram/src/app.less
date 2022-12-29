@@ -1,0 +1,20 @@
+@primaryColor: #1fc266;
+@primaryDisabledColor: #65c28d;
+
+@wxSwitchWidth: 110px;
+@wxSwitchHeight: 50px;
+/* swtich整体大小 */
+.wx-switch-input {
+	width: @wxSwitchWidth !important;
+	height: @wxSwitchHeight !important;
+}
+/* false的样式 */
+.wx-switch-input::before {
+	width: @wxSwitchWidth - 1 !important;
+	height: @wxSwitchHeight - 4 !important;
+}
+/* true的样式 */
+.wx-switch-input::after {
+	width: @wxSwitchHeight !important;
+	height: @wxSwitchHeight - 3 !important;
+}

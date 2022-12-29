@@ -1,0 +1,51 @@
+@import '@/app.less';
+@import '@/styles/animate.less';
+
+.popup-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 999;
+	.container {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		background: #ffffff;
+		border-radius: 16px 16px 0px 0px;
+		.confirm-header {
+			padding: 22px 24px;
+			font-size: 30px;
+			font-weight: 400;
+			color: @primaryColor;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.confirm-btn {
+				font-weight: 500;
+			}
+		}
+		.close-header {
+			font-size: 36px;
+			font-weight: 500;
+			color: #222222;
+			position: relative;
+			height: 104px;
+			.close-title {
+				position: absolute;
+				top: 30px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.close-btn {
+				position: absolute;
+				top: 34px;
+				right: 24px;
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+}

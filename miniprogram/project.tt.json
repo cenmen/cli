@@ -1,0 +1,13 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "care-mini-program",
+  "description": "方舟健客关爱中心小程序",
+  "appid": "wx18b6f2edd9d0ac40",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}
