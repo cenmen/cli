@@ -8,10 +8,10 @@
 			<Sider />
 		</a-layout-sider>
 		<a-layout>
-			<LayoutHeader />
+			<Header />
 			<Tabbar />
 			<a-layout-content class="overflow-hidden">
-				<Error v-if="isError" />
+				<Error v-if="state.isError" />
 				<router-view v-else v-slot="{ Component, route }">
 					<transition enter-active-class="transition-all duration-1000" enter-from-class="opacity-0 -translate-x-16">
 						<keep-alive :include="keepAliveIncludeItems">
@@ -24,8 +24,8 @@
 	</a-layout>
 </template>
 
-<script>
-import { defineComponent, computed, onMounted, onErrorCaptured, reactive, toRefs } from 'vue';
+<script setup>
+import { computed, onMounted, onErrorCaptured, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/store';
 import logo from '@/assets/images/logo.svg';
@@ -34,45 +34,23 @@ import Sider from './Sider.vue';
 import Tabbar from './Tabbar.vue';
 import Error from './Error.vue';
 
-export default defineComponent({
-	components: {
-		Sider,
-		Tabbar,
-		Error,
-		LayoutHeader: Header,
-	},
+const state = reactive({
+	isError: false,
+});
+const layoutStore = useLayoutStore();
+const keepAliveIncludeItems = computed(() => layoutStore.tabbarItems.map(val => val.path));
+const { siderCollapsed } = storeToRefs(layoutStore);
 
-	setup() {
-		const state = reactive({
-			isError: false,
-		});
-		const layoutStore = useLayoutStore();
-		const keepAliveIncludeItems = computed(() => layoutStore.tabbarItems.map(val => val.path));
+onMounted(() => {
+	window.addEventListener('resize', () => {
+		const screenWidth = document.body.clientWidth;
+		if (layoutStore.siderCollapsed === false && screenWidth < 1300) layoutStore.$patch({ siderCollapsed: true });
+	});
+});
 
-		const onChangeCollapsed = () => {
-			layoutStore.$patch({ siderCollapsed: !layoutStore.siderCollapsed });
-		};
-
-		onMounted(() => {
-			window.addEventListener('resize', () => {
-				const screenWidth = document.body.clientWidth;
-				if (layoutStore.siderCollapsed === false && screenWidth < 1300) layoutStore.$patch({ siderCollapsed: true });
-			});
-		});
-
-		onErrorCaptured(err => {
-			state.isError = true;
-			console.error('--> onErrorCaptured.err', err);
-			return false;
-		});
-
-		return {
-			logo,
-			keepAliveIncludeItems,
-			...toRefs(state),
-			...storeToRefs(layoutStore),
-			onChangeCollapsed,
-		};
-	},
+onErrorCaptured(err => {
+	state.isError = true;
+	console.error('--> onErrorCaptured.err', err);
+	return false;
 });
 </script>

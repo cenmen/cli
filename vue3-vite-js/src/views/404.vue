@@ -6,21 +6,12 @@
 	</a-result>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import { useRouter } from 'vue-router';
 
-export default defineComponent({
-	setup() {
-		const router = useRouter();
+const router = useRouter();
 
-		const goHome = () => {
-			router.push({ path: '/' });
-		};
-
-		return {
-			goHome,
-		};
-	},
-});
+const goHome = () => {
+	router.push({ path: '/' });
+};
 </script>

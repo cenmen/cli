@@ -19,31 +19,15 @@
 	</a-layout-header>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import { MenuUnfoldOutlined, LogoutOutlined } from '@ant-design/icons-vue';
-import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/store';
-export default defineComponent({
-	components: {
-		MenuUnfoldOutlined,
-		LogoutOutlined,
-	},
 
-	setup() {
-		const layoutStore = useLayoutStore();
+const layoutStore = useLayoutStore();
 
-		const onChangeCollapsed = () => {
-			layoutStore.$patch({ siderCollapsed: !layoutStore.siderCollapsed });
-		};
+const onChangeCollapsed = () => {
+	layoutStore.$patch({ siderCollapsed: !layoutStore.siderCollapsed });
+};
 
-		const onEnterAvatar = () => {};
-
-		return {
-			...storeToRefs(layoutStore),
-			onChangeCollapsed,
-			onEnterAvatar,
-		};
-	},
-});
+const onEnterAvatar = () => {};
 </script>
