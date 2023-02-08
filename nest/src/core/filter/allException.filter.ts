@@ -2,7 +2,7 @@ import { Catch, ArgumentsHost, HttpStatus, HttpException } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core';
 import { isArray } from 'class-validator';
 import * as dayjs from 'dayjs';
-import { MyLogger } from 'src/core/logger/mylogger.service';
+import { MyLogger } from '../../core/logger/mylogger.service';
 
 type ErrorRes = {
   statusCode: number;

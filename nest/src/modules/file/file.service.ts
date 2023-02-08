@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { SERVER_DOMAIN, getRequirePath } from 'src/utils';
+import { SERVER_DOMAIN, getRequirePath } from '../../utils';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 

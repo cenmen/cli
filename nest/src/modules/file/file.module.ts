@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { FileController } from './file.controller';
 import { FileService } from './file.service';
-import { FILES_PATH } from 'src/utils/index';
+import { FILES_PATH } from '../../utils/index';
 
 @Module({
   imports: [

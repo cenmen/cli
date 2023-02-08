@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional, PartialType, IntersectionType } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, Min } from 'class-validator';
 import { Type } from 'class-transformer';
-import { BasePageQuery } from 'src/dto/page.dto';
+import { BasePageQuery } from '../../../dto/page.dto';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: '请输入用户名' })
