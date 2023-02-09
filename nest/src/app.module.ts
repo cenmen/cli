@@ -5,6 +5,7 @@ import envConfig from './config/env';
 import { ApiModule } from './modules/api/api.module';
 import { FileModule } from './modules/file/file.module';
 import { UserModule } from './modules/user/user.module';
+import { DustbinModule } from './modules/dustbin/dustbin.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UserModule } from './modules/user/user.module';
     ApiModule,
     FileModule,
     UserModule,
+    DustbinModule,
   ],
 })
 export class AppModule {}
