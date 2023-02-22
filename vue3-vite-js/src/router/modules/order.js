@@ -1,3 +1,4 @@
+import { BarsOutlined } from '@ant-design/icons-vue';
 import { AUTH_KEYS } from '@/constants';
 import Layout from '@/layout/Layout.vue';
 
@@ -5,7 +6,7 @@ export default {
 	path: '/order',
 	redirect: '/order/list',
 	component: Layout,
-	meta: { title: '订单管理', icon: 'BarsOutlined', root: true },
+	meta: { title: '订单管理', icon: BarsOutlined, root: true },
 	children: [
 		{
 			path: '/order/list',

@@ -54,7 +54,7 @@ export default defineConfig(({ mode, command }) => {
 				[AUTH_API]: {
 					target: `http://api.${mode}.com`,
 					changeOrigin: true,
-					rewrite: path => path.replace(RegExp(`^/${AUTH_API}`), ''),
+					rewrite: path => path.replace(RegExp(`^${AUTH_API}`), ''),
 				},
 			},
 		},
